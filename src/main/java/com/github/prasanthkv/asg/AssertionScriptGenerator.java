@@ -12,7 +12,7 @@ import java.util.Set;
  * Class to generate JUnit assertion for any java composite object. this class
  * can support, POJOs, Map & Collections
  *
- * @author prakv
+ * @author prasanthkv
  * @param <T> as result data type
  */
 public class AssertionScriptGenerator<T> {

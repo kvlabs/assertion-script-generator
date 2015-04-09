@@ -9,7 +9,7 @@ import org.junit.Assert;
 
 /**
  *
- * @author prakv
+ * @author prasanthkv
  */
 public class AUnitDataGenTest {
 

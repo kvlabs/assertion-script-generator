@@ -6,11 +6,10 @@ import java.util.Set;
 
 /**
  *
- * @author prakv
+ * @author prasanthkv
  */
 public class First {
 
-    //public String test;
     private String oruString;
     private int oruInt;
     private boolean oruBoolean;

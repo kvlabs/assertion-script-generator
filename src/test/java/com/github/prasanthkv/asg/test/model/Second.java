@@ -2,7 +2,7 @@ package com.github.prasanthkv.asg.test.model;
 
 /**
  *
- * @author prakv
+ * @author prasanthkv
  */
 public class Second {
 
