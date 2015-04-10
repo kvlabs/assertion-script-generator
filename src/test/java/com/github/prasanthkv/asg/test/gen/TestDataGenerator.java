@@ -83,7 +83,7 @@ public class TestDataGenerator {
         return first;
     }
 
-    public Map getMap() {
+    public Map< Object, String> getMap() {
         Map< Object, String> mapOfObjects = new HashMap<>();
         mapOfObjects.put('1', "VALUE_1");
         mapOfObjects.put((byte) 123, "VALUE_2");
