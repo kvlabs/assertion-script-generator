@@ -1,14 +1,15 @@
 package com.github.prasanthkv.asg.test.gen;
 
-import com.github.prasanthkv.asg.AssertionScriptGenerator;
 import com.github.prasanthkv.asg.test.model.First;
 import com.github.prasanthkv.asg.test.model.OruEnum;
 import com.github.prasanthkv.asg.test.model.Second;
 import com.github.prasanthkv.asg.test.model.Thrird;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -96,4 +97,17 @@ public class TestDataGenerator {
         return mapOfObjects;
     }
 
+    public Set<Object> getSet() {
+        Set< Object> setOfObject = new HashSet<>();
+        setOfObject.add('1');
+        setOfObject.add((byte) 123);
+        setOfObject.add((short) 12345);
+        setOfObject.add(1234567);
+        setOfObject.add(1234567891011L);
+        setOfObject.add(1234.56F);
+        setOfObject.add(new Double(123456.789F));
+        setOfObject.add("KEY_FOR_STRING");
+        return setOfObject;
+
+    }
 }

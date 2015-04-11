@@ -48,12 +48,14 @@ public class AssertionScriptGenerator<T> {
      * @return Assertion code as String
      */
     public String generateAssertionScript() {
+        this.builder = new StringBuilder("\n\n");
         long start = System.currentTimeMillis();
-        this.builder = new StringBuilder();
         this.processObject(this.type, this.name);
         long end = System.currentTimeMillis();
         //
-        this.builder.append(String.format("\n\n//Generated in %s ms", end - start));
+        write("\n\n");
+        write(String.format("//Generated in %s ms", end - start));
+        write("\n\n");
         return this.builder.toString();
     }
 
@@ -185,6 +187,15 @@ public class AssertionScriptGenerator<T> {
                     this.processObject(value, varName);
                 }
             }
+        } else if (object instanceof Set) {
+            for (Object value : collection) {
+                //BASE OBJECTS
+                if (this.isPrimitiveObject(value)) {
+                    write(String.format("%s.contains(%s)", getterName, this.generateWrapperFormat(value, getterName)));
+                } else {
+                    write("//Non Primitive Objects are not yet supported in SET assertion.");
+                }
+            }
         } else {
             write(String.format("//Support for [%s] is yet to be added", object.getClass().getName()));
         }
@@ -238,13 +249,13 @@ public class AssertionScriptGenerator<T> {
                 Object value = map.get(key);
                 if (this.isPrimitiveObject(value)) {
                     //BASE OBJECTS
-                    this.processObject(value, String.format("%s.get(%s)", getterName, this.formatMapKey(key, getterName)));
+                    this.processObject(value, String.format("%s.get(%s)", getterName, this.generateWrapperFormat(key, getterName)));
                 } else {
                     write("// " + (i + 1));
                     //Yet Another Pojo need to create new object here
                     String className = value.getClass().getSimpleName();
                     String varName = findVarName(className);
-                    write(String.format("%s %s = %s.get(%s);", className, varName, getterName, this.formatMapKey(key, getterName)));
+                    write(String.format("%s %s = %s.get(%s);", className, varName, getterName, this.generateWrapperFormat(key, getterName)));
                     this.processObject(value, varName);
                 }
             }
@@ -257,7 +268,7 @@ public class AssertionScriptGenerator<T> {
      * @param object as data type object
      * @return formated string variable
      */
-    private String formatMapKey(Object object, String getterName) {
+    private String generateWrapperFormat(Object object, String getterName) {
         if (object instanceof Integer) {
             return String.format("new Integer(%s)", (int) object);
         } else if (object instanceof Short) {
@@ -292,7 +303,9 @@ public class AssertionScriptGenerator<T> {
             return false;
         }
         return (object.getClass().isPrimitive()
+                || (object instanceof Number)
                 || (object instanceof String)
+                || (object instanceof Character)
                 || object.getClass().isEnum());
     }
 

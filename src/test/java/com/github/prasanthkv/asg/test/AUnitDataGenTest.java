@@ -17,8 +17,12 @@ public class AUnitDataGenTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //MAP
+        System.out.println(new AssertionScriptGenerator(new TestDataGenerator().getMap(), "map").generateAssertionScript());
+        //SET
+        System.out.println(new AssertionScriptGenerator(new TestDataGenerator().getSet(), "result").generateAssertionScript());
+        //POJO
         System.out.println(new AssertionScriptGenerator(new TestDataGenerator().getFirst(), "result").generateAssertionScript());
-        //System.out.println(new AssertionScriptGenerator(new TestDataGenerator().getMap(), "map").generateAssertionScript());
     }
 
     /**
