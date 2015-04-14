@@ -1,9 +1,9 @@
-package com.github.prasanthkv.asg.test.gen;
+package io.kvlabs.asg;
 
-import com.github.prasanthkv.asg.test.model.First;
-import com.github.prasanthkv.asg.test.model.OruEnum;
-import com.github.prasanthkv.asg.test.model.Second;
-import com.github.prasanthkv.asg.test.model.Thrird;
+import test.kvlabs.asg.model.First;
+import test.kvlabs.asg.model.OruEnum;
+import test.kvlabs.asg.model.Second;
+import test.kvlabs.asg.model.Thrird;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

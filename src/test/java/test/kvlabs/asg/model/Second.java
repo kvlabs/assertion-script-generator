@@ -1,4 +1,4 @@
-package com.github.prasanthkv.asg.test.model;
+package test.kvlabs.asg.model;
 
 /**
  *

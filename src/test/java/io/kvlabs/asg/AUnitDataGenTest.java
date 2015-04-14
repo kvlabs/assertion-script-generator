@@ -1,10 +1,9 @@
-package com.github.prasanthkv.asg.test;
+package io.kvlabs.asg;
 
-import com.github.prasanthkv.asg.test.gen.TestDataGenerator;
-import com.github.prasanthkv.asg.AssertionScriptGenerator;
-import com.github.prasanthkv.asg.test.model.First;
-import com.github.prasanthkv.asg.test.model.OruEnum;
-import com.github.prasanthkv.asg.test.model.Thrird;
+import io.kvlabs.asg.AssertionScriptGenerator;
+import test.kvlabs.asg.model.First;
+import test.kvlabs.asg.model.OruEnum;
+import test.kvlabs.asg.model.Thrird;
 import org.junit.Assert;
 
 /**

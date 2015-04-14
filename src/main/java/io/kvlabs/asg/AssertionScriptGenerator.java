@@ -1,4 +1,4 @@
-package com.github.prasanthkv.asg;
+package io.kvlabs.asg;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -120,7 +120,10 @@ public class AssertionScriptGenerator<T> {
     private void generateAssert(Object object, String variableName, String parentName) {
         String getterName = formGetter(parentName, variableName, false);
         //Null item
-        if ((object instanceof Number) || (object instanceof Character)) {
+        if (object == null) {
+            //Number -> char , short , int , long, float & double
+            write(String.format("Assert.assertNull(%s);", getterName));
+        } else if ((object instanceof Number) || (object instanceof Character)) {
             //Number -> char , short , int , long, float & double
             assertEqualsForNumber(object, getterName);
         } else if (object instanceof String) {
@@ -168,7 +171,7 @@ public class AssertionScriptGenerator<T> {
      */
     private void processCollections(Object object, String getterName) {
         Collection collection = (Collection) object;
-        if (collection.size() == 0) {
+        if (collection.isEmpty()) {
             write(String.format("Assert.assertTrue(%s.isEmpty());", getterName));
         } else if (object instanceof List) {
             write(String.format("Assert.assertEquals(%s, %s.size());", collection.size(), getterName));

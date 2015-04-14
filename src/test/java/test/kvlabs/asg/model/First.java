@@ -1,4 +1,4 @@
-package com.github.prasanthkv.asg.test.model;
+package test.kvlabs.asg.model;
 
 import java.util.List;
 import java.util.Map;
