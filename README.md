@@ -19,13 +19,13 @@ Do the relevant mocking or data creation for the input variable.
 
 ##### Step 3
 Use `AssertionScriptGenerator` to generate assertion script form the actual returned object. 
-![step1](https://github.com/prasanthkv/AssertionScriptGenerator/blob/master/doc/images/step_1.png?raw=true)
+![step1](https://github.com/kvlabs/AssertionScriptGenerator/blob/master/doc/images/step_1.png?raw=true)
 
 ##### Step 4
 Run the test script and copy the assertion script printed in the console.
-![step2](https://github.com/prasanthkv/AssertionScriptGenerator/blob/master/doc/images/step_2.png?raw=true)
+![step2](https://github.com/kvlabs/AssertionScriptGenerator/blob/master/doc/images/step_2.png?raw=true)
 
 ##### Step 5
 Replace the AssertionScriptGenerator generation with the generated code.
-![step3](https://github.com/prasanthkv/AssertionScriptGenerator/blob/master/doc/images/step_3.png?raw=true)
+![step3](https://github.com/kvlabs/AssertionScriptGenerator/blob/master/doc/images/step_3.png?raw=true)
  
