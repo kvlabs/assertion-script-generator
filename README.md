@@ -29,3 +29,6 @@ Run the test script and copy the assertion script printed in the console.
 Replace the AssertionScriptGenerator generation with the generated code.
 ![step3](https://user-images.githubusercontent.com/3488602/33926526-61a00e7a-df93-11e7-8f47-4da66fb91bc1.png)
  
+
+## License
+By contributing your code, you agree to license your contribution under the [MIT License](LICENSE).
