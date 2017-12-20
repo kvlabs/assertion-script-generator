@@ -1,4 +1,4 @@
-package io.kvlabs.asg;
+package io.kvlabs.test.generator.junit.assertion;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * Class to generate JUnit assertion for any java composite object. this class
- * can support, POJOs, Map & Collections
+ * can support, POJOs, Map n Collections
  *
  * @author prasanthkv
  * @param <T> as result data type

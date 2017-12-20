@@ -1,9 +1,9 @@
-package io.kvlabs.asg;
+package io.kvlabs.test.generator.junit.assertion;
 
-import test.kvlabs.asg.model.First;
-import test.kvlabs.asg.model.OruEnum;
-import test.kvlabs.asg.model.Second;
-import test.kvlabs.asg.model.Thrird;
+import io.kvlabs.test.generator.junit.assertion.model.First;
+import io.kvlabs.test.generator.junit.assertion.model.OruEnum;
+import io.kvlabs.test.generator.junit.assertion.model.Second;
+import io.kvlabs.test.generator.junit.assertion.model.Thrird;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

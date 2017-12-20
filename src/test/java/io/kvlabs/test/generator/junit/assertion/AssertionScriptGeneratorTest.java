@@ -1,16 +1,15 @@
-package io.kvlabs.asg;
+package io.kvlabs.test.generator.junit.assertion;
 
-import io.kvlabs.asg.AssertionScriptGenerator;
-import test.kvlabs.asg.model.First;
-import test.kvlabs.asg.model.OruEnum;
-import test.kvlabs.asg.model.Thrird;
+import io.kvlabs.test.generator.junit.assertion.model.First;
+import io.kvlabs.test.generator.junit.assertion.model.OruEnum;
+import io.kvlabs.test.generator.junit.assertion.model.Thrird;
 import org.junit.Assert;
 
 /**
  *
  * @author prasanthkv
  */
-public class AUnitDataGenTest {
+public class AssertionScriptGeneratorTest {
 
     /**
      * @param args the command line arguments
