@@ -1,12 +1,7 @@
 package io.kvlabs.test.generator.junit.assertion;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Class to generate JUnit assertion for any java composite object. this class
@@ -21,6 +16,7 @@ public class AssertionScriptGenerator<T> {
     private StringBuilder builder;
     private final T type;
     private String name;
+    private final int level;
 
     /**
      * Create new instance of AUnit
@@ -28,18 +24,30 @@ public class AssertionScriptGenerator<T> {
      * @param object as object of Type T
      */
     public AssertionScriptGenerator(T object) {
-        this(object, "result");
+        this(object, 0, "result");
     }
 
     /**
      * Create new instance of AUnit
      *
      * @param object as object of Type T
+     * @param level at the super class level
+     */
+    public AssertionScriptGenerator(T object, int level) {
+        this(object, level, "result");
+    }
+
+    /**
+     * Create new instance of AUnit
+     *
+     * @param object as object of Type T
+     * @param level at the super class level
      * @param var as root variable Name
      */
-    public AssertionScriptGenerator(T object, String var) {
+    public AssertionScriptGenerator(T object, int level, String var) {
         this.type = object;
         this.name = var;
+        this.level = level;
     }
 
     /**
@@ -48,7 +56,7 @@ public class AssertionScriptGenerator<T> {
      * @return Assertion code as String
      */
     public String generateAssertionScript() {
-        this.builder = new StringBuilder("\n\n");
+        this.builder = new StringBuilder(10000).append("\n\n");
         long start = System.currentTimeMillis();
         this.processObject(this.type, this.name);
         long end = System.currentTimeMillis();
@@ -79,6 +87,7 @@ public class AssertionScriptGenerator<T> {
         if (object == null) {
             String getterName = formGetter(null, variableName, false);
             write(String.format("Assert.assertNull(%s);", getterName));
+            return;
         }
         //Base Objects
         if (this.isPrimitiveObject(object)) {
@@ -97,8 +106,23 @@ public class AssertionScriptGenerator<T> {
         }
         //pojos
         try {
-            Field[] fields = object.getClass().getDeclaredFields();
-            for (Field field : fields) {
+            //get all elements of current class
+            Set<Field> fieldList = new HashSet<>();
+            //now try for parent class
+            if (object.getClass().getSuperclass() != null) {
+                Class<?> current = object.getClass();
+                while ((current.getSuperclass() != null) && (!"java.lang.Object".equals(current.getCanonicalName()))) {
+                    Field[] declaredFields = current.getDeclaredFields();
+                    if ((declaredFields != null) && (declaredFields.length > 0)) {
+                        fieldList.addAll(Arrays.asList(declaredFields));
+                    }
+                    current = current.getSuperclass();
+                }
+            } else {
+                fieldList = new HashSet<>(Arrays.asList(object.getClass().getDeclaredFields()));
+            }
+            //
+            for (Field field : fieldList) {
                 if (!"serialVersionUID".equals(field.getName())) {
                     field.setAccessible(true);
                     generateAssert(field.get(object), field.getName(), variableName);
@@ -127,8 +151,8 @@ public class AssertionScriptGenerator<T> {
             //Number -> char , short , int , long, float & double
             assertEqualsForNumber(object, getterName);
         } else if (object instanceof String) {
-            //String
-            write(String.format("Assert.assertEquals(\"%s\", %s);", (String) object, getterName));
+            //String added suport for json
+            write(String.format("Assert.assertEquals(\"%s\", %s);", ((String) object).replace("\"", "\\\""), getterName));
         } else if (object instanceof Boolean) {
             //boolean
             getterName = formGetter(parentName, variableName, true);
@@ -181,13 +205,15 @@ public class AssertionScriptGenerator<T> {
                     //BASE OBJECTS
                     this.processObject(value, String.format("%s.get(%s)", getterName, i++));
                 } else {
-                    write("// " + (i + 1));
                     //create new vareable
                     String className = value.getClass().getSimpleName();
                     String varName = findVarName(className);
-                    write(String.format("%s %s = %s.get(%s);", className, varName, getterName, i++));
-                    //process
-                    this.processObject(value, varName);
+                    if (!varName.contains("$")) {
+                        write("// " + (i + 1));
+                        write(String.format("%s %s = %s.get(%s);", className, varName, getterName, i++));
+                        //process
+                        this.processObject(value, varName);
+                    }
                 }
             }
         } else if (object instanceof Set) {
@@ -354,9 +380,9 @@ public class AssertionScriptGenerator<T> {
         }
         String upper = variableName.toUpperCase().charAt(0) + variableName.substring(1);
         if (booleanObj) {
-            return parentName + ".is" + upper + "()";
+            return String.format("%s.is%s()", parentName, upper);
         }
-        return parentName + ".get" + upper + "()";
+        return String.format("%s.get%s()", parentName, upper);
     }
 
     /**
