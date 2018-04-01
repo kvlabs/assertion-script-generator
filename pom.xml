@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.kvlabs.test</groupId>
     <artifactId>assertion-generator</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>AssertionScriptGenerator</name>
     <url>https://kvlabs.github.io/assertion-script-generator</url>
